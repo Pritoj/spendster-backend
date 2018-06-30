@@ -13,6 +13,12 @@ module.exports = (server) => {
     server.use(restify.plugins.queryParser());
     server.use(restify.plugins.bodyParser());
 
+    server.on('restifyError', function (req, res, err, next) {
+        // handle all errors passed to next here, whether it's Error or NotFoundError or anything that is an instance of Error
+        res.status(err.status || 500);
+        res.json(err.errors); 
+    });
+
     // Add all the routes
     addRoutes(server);
 };
