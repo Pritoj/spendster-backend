@@ -6,14 +6,14 @@ const knex = Knex({
     client: 'sqlite3',
     useNullAsDefault: true,
     connection: {
-        filename: 'example.db'
-    }
+      filename: './dev.sqlite3'
+    },
 });
 
 // Give the knex object to objection.
 Model.knex(knex);
 
-return {
+module.exports = {
     knex,
     Model
 }

@@ -8,7 +8,7 @@ const userRoutes = require('./user');
 
 const addRoutes = (server) => {
     // Add the user routes
-    userRoutes.applyRoutes(server);
+    userRoutes.applyRoutes(server, '/users');
 }
 
 module.exports = addRoutes;

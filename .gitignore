@@ -1,2 +1,4 @@
 node_modules
 yarn.lock
+dev.sqlite3
+package-lock.json
