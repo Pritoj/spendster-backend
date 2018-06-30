@@ -1,0 +1,19 @@
+const restify = require('restify');
+const bunyan = require('bunyan');
+
+const app = require('../app');
+
+const log = bunyan.createLogger({ name: "Spendster Backend" });
+
+// Create the resitfy server
+const server = restify.createServer({
+    name: 'Spendster Backend',
+    log
+});
+
+// Pass it to app for further config
+app(server);
+
+
+
+server.listen(process.env.PORT || 3000);
