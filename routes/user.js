@@ -10,6 +10,7 @@ const _ = require('lodash');
 
 const routerInstance = new Router();
 const userHandler = require('../handlers/Users');
+const passport = require('../auth');
 
 // This is a route to add new users
 routerInstance.post(
@@ -46,9 +47,28 @@ routerInstance.post(
         req.log.error(e);
         next(new InternalServerError('Couldn\'t create user'));
     }
-    
-
-
 });
+
+// This is a route to get a login token via username and password
+routerInstance.post(
+    '/token',
+    validate(
+        {
+            body: {
+                email: Joi.string().required().email(),
+                password: Joi.string().required()
+            }
+        }
+    ),
+    passport.authenticate('local',{session:false}),
+    async (req,res,next) => {
+        // Check the user data sent, remove the password
+        let userData = _.omit(req.user,['password']);
+
+        // Generate token
+        let token = await userHandler.generateToken(userData);
+        res.json({token,userData});
+    }
+);
 
 module.exports = routerInstance;

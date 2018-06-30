@@ -16,6 +16,11 @@ const addUser = async (username, email, password) => {
     return user;
 };
 
+const generateToken = async(userData) => {
+    return cryptoHelper.generateWebToken(userData);
+};
+
 module.exports = {
-    addUser
+    addUser,
+    generateToken
 };
