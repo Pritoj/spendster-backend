@@ -5,3 +5,5 @@ class Users extends Model {
         return 'users';
     }
 }
+
+module.exports = Users;
