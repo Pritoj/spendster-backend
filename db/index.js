@@ -1,13 +1,13 @@
 const { Model } = require('objection');
 const Knex = require('knex');
 
+const dbConfig = require('../config/db');
+
 // Initialize knex.
 const knex = Knex({
-    client: 'sqlite3',
+    client: dbConfig.client,
     useNullAsDefault: true,
-    connection: {
-      filename: './dev.sqlite3'
-    },
+    connection: dbConfig.connection,
 });
 
 // Give the knex object to objection.

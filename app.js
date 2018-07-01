@@ -17,9 +17,8 @@ module.exports = (server) => {
     server.use(passport.initialize());
 
     server.on('restifyError', function (req, res, err, next) {
-        console.log(err);
         // handle all errors passed to next here, whether it's Error or NotFoundError or anything that is an instance of Error
-        res.status(err.status || 500);
+        res.status(err.status || err.statusCode || 500);
         res.json(err.errors); 
     });
 

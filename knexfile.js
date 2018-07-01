@@ -1,13 +1,12 @@
 // Update with your config settings.
+const dbConfig = require('./config/db');
 
 module.exports = {
 
   development: {
-    client: 'sqlite3',
+    client: dbConfig.client,
     useNullAsDefault: true,
-    connection: {
-      filename: './dev.sqlite3'
-    },
+    connection: dbConfig.connection,
     migrations: {
       directory: './db/migrations'
     }

@@ -3,7 +3,7 @@
  */
 
 const Router = require('restify-router').Router;
-const { InternalServerError } = require('restify-errors');
+const { InternalServerError, BadRequestError } = require('restify-errors');
 const validate = require('restify-api-validation');
 const Joi = require('joi');
 const _ = require('lodash');
@@ -41,11 +41,11 @@ routerInstance.post(
         // Omit the password field
         userInsert = _.omit(userInsert,['password']);
         req.log.info(userInsert);
+        res.status(201);
         res.json(userInsert);
     }
     catch(e){
-        req.log.error(e);
-        next(new InternalServerError('Couldn\'t create user'));
+        next(new BadRequestError('Couldn\'t create user'));
     }
 });
 

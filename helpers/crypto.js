@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const appConfig = require('../config/app');
+
 /**
  * This function uses bcrypt to hash string.
  * Mostly used for passwords.
@@ -8,7 +10,7 @@ const jwt = require('jsonwebtoken');
  * @param {String} str 
  */
 const hashString = async (str) => {
-    return bcrypt.hash(str,10);
+    return bcrypt.hash(str,appConfig.bcryptSaltRounds);
 }
 
 /**
@@ -26,7 +28,7 @@ const generateWebToken = (data) => {
     return new Promise((resolve,reject) => {
         try {
             // Try if the signing works.
-            let token = jwt.sign(JSON.stringify(data),'MySecretJwtKey');
+            let token = jwt.sign(JSON.stringify(data),appConfig.secretJWTKey);
             resolve(token);
         }
         catch(e){
