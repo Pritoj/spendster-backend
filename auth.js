@@ -1,5 +1,7 @@
 const passport = require('passport-restify');
 const LocalStrategy = require('passport-local').Strategy;
+const BearerStrategy = require('passport-http-bearer').Strategy;
+
 const { 
     NotFoundError,
     UnauthorizedError
@@ -33,5 +35,19 @@ passport.use(new LocalStrategy({
     // Everything is amaze, move ahead
     return done(null, user);
 })));
+
+passport.use(new BearerStrategy(
+    async (token, done) => {
+        try {
+            // Here we decode the token
+            let tokenData = await cryptoHelper.readWebToken(token);
+            return done(null, tokenData);
+        }
+        catch (e) {
+            return done(new UnauthorizedError());
+        }
+        
+    }
+));
 
 module.exports = passport;

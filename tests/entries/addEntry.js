@@ -54,7 +54,7 @@ describe('Entries', () => {
             expect(addEntryReq.status).to.equal(200);
 
             // Make sure the entry was added
-            let entry = await Entries.query().findOne();
+            let entry = await Entries.query().first();
 
             expect(entry.name).to.equal("Cat's food");
             expect(entry.amount).to.equal(1000);

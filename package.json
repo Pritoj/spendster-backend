@@ -17,6 +17,7 @@
     "knex": "^0.14.6",
     "lodash": "^4.17.10",
     "objection": "^1.1.10",
+    "passport-http-bearer": "^1.0.1",
     "passport-local": "^1.0.0",
     "passport-restify": "^1.0.1",
     "restify": "^7.2.1",

@@ -1,13 +1,13 @@
-const addEntry = (
+const addEntry = async (
     server,
     token,
     name,
     amount,
     type,
 ) => {
-    return server
+    return await server
         .post('/entries')
-        .set('Authorization', `Bearer JWT ${token}`)
+        .set('Authorization', `Bearer ${token}`)
         .send({
             name,
             amount,

@@ -24,21 +24,18 @@ const compareHash = async (str, hash) => {
     return bcrypt.compare(str,hash);
 }
 
-const generateWebToken = (data) => {
-    return new Promise((resolve,reject) => {
-        try {
-            // Try if the signing works.
-            let token = jwt.sign(JSON.stringify(data),appConfig.secretJWTKey);
-            resolve(token);
-        }
-        catch(e){
-            reject(e);
-        }
-    });
+const generateWebToken = async (data) => {
+    return jwt.sign(JSON.stringify(data),appConfig.secretJWTKey);
 }
+
+const readWebToken = async (token) => {
+    return jwt.verify(token, appConfig.secretJWTKey);
+}
+
 
 module.exports = {
     hashString,
     compareHash,
-    generateWebToken
+    generateWebToken,
+    readWebToken
 };
