@@ -1,4 +1,4 @@
-const { Model } = require('objection');
+const { Model, knexSnakeCaseMappers } = require('objection');
 const Knex = require('knex');
 
 const dbConfig = require('../config/db');
@@ -8,6 +8,7 @@ const knex = Knex({
     client: dbConfig.client,
     useNullAsDefault: true,
     connection: dbConfig.connection,
+    ...knexSnakeCaseMappers()
 });
 
 // Give the knex object to objection.
